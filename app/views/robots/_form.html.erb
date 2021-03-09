@@ -1,0 +1,40 @@
+<%= form_for(@robot,url: robots_path,method: :post) do |f| %>
+  <table>
+    <tr>
+      <td colspan="2">
+        <div class="field">
+          <%= f.label :size_grid %>
+          <%= f.text_field :size_grid,placeholder: 'Size grid',style:"width:50px"%>
+          <i>Type size of the grid default: 5x5</i>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :commands %>
+          <%= f.text_area :commands,placeholder: 'commands',style:"width:350px;height:150px" %>
+          <p style="width: 400px"><i>Type commands available:[PLACE x,y,(NORTH|WEST|SOUTH|EAST)|MOVE|LEFT|RIGHT|REPORT] - whitespace delimited</i></p>
+          <b><%= "output: #{@robot.report}" if @robot.report %></b>
+        </div>
+      </td>
+      <td>
+        <p>
+          <b>Shortcut for navigations:</b><br/>
+          <b>Ctrl+shift+N: MOVE NORTH</b><br/>
+          <b>Ctrl+shift+W: MOVE WEST</b><br/>
+          <b>Ctrl+shift+S: MOVE SOUTH</b><br/>
+          <b>Ctrl+shift+E: MOVE EAST</b><br/>
+        </p>
+        <%= f.hidden_field :max_x,value:@max_x %>
+        <%= f.hidden_field :max_y,value:@max_y %>
+        <%= f.hidden_field :x,value:@x %>
+        <%= f.hidden_field :y,value: @y %>
+        <%= f.hidden_field :f,value: @f%>
+      </td>
+    </tr>
+  </table>
+  <div class="field">
+    <%= f.submit 'Post commands' %>
+  </div>
+<% end %>
